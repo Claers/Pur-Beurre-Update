@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Pur Beurre - Votre Compte
+{% endblock title %}
+
+{% block body %}
+
+<body id="page-top">
+    {% endblock body %}
+
+    {% block menuTop %}
+    <a class="navbar-brand js-scroll-trigger" href="{% url 'acceuil' %}"> <img src="{% static 'site/img/favicon.ico' %}"
+            style="margin-bottom:4px;">
+        Pur Beurre</a>
+    {% endblock menuTop %}
+
+    {% block content %}
+    <header class="sproducthead randimg{{random_img}} text-center text-white d-flex">
+        <div class="container my-auto">
+            <div style="padding-bottom:5vh;">
+            </div>
+            <div class="row">
+                <div class="col-lg-10 mx-auto" style="padding-bottom:15vh;">
+                    <h1>
+                        <strong class="">{{ username }}</strong>
+                    </h1>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section class="texthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto text-center">
+                    <strong class="">Votre adresse mail : {{ email }}</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

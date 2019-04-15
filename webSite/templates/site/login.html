@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Pur Beurre - Connexion
+{% endblock title %}
+{% block menuTop %}
+<a class="navbar-brand js-scroll-trigger" href="{% url 'acceuil' %}"> <img src="{% static 'site/img/favicon.ico' %}"
+        style="margin-bottom:4px;"> Pur Beurre</a>
+{% endblock menuTop %}
+{% block content %}
+
+{% if error %}
+<p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+{% endif %}
+
+{% if user.is_authenticated %}
+Vous êtes connecté, {{ user.username }} !
+{% else %}
+<header class="loginCont randimg{{random_img}}">
+    <div class="container">
+        <div class="row centered-form">
+            <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-4 mx-auto">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <h4 class="col-12 col-lg-5 text-left mx-auto">Se connecter</h4>
+                            <label class="switch col-3 col-lg-1 mx-auto">
+                                <input type="checkbox" class="default" id="formType" onclick="test()">
+                                <span class="slider"></span>
+                            </label>
+
+                            <h4 class="col-12 col-lg-5 text-right mx-auto">Créer un compte</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" id="createForm" action="{% url 'connexion' %}" role="form" class="hidden">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" maxlength="30" name="username" class="form-control input-sm"
+                                    placeholder="Username">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control input-sm" placeholder="Email Address">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control input-sm" placeholder="Password">
+                            </div>
+                            <input type="hidden" id="create" name="create" value="true">
+
+                            <input type="submit" value="Créer un compte" class="btn btn-info btn-block">
+                        </form>
+                        <form method="post" id="connectForm" action="{% url 'connexion' %}" role="form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" maxlength="30" name="username" class="form-control input-sm"
+                                    placeholder="Username">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control input-sm" placeholder="Password">
+                            </div>
+                            <input type="hidden" id="connect" name="connect" value="false">
+
+                            <input type="submit" value="Connexion" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    function test() {
+        var create = document.getElementById("createForm");
+        var connect = document.getElementById("connectForm");
+        $(create).toggle();
+        $(connect).toggle();
+        var createField = $('#create'),
+            createVal = createField.val();
+
+        createField.val(createVal === "true" ? "false" : "true");
+
+        var connectField = $('#connect'),
+            connectVal = connectField.val();
+
+        connectField.val(connectVal === "true" ? "false" : "true");
+    }
+</script>
+{% endif %}
+{% endblock content %}

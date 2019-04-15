@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load search_extras %}
+{% block title %}
+Pur Beurre - Recherche : {{ request.POST.product_name }}
+{% endblock title %}
+
+{% block body %}
+
+<body id="page-top">
+    {% endblock body %}
+
+    {% block menuTop %}
+    <a style="color: rgba(0, 0, 0, 0.7);" class="navbar-brand js-scroll-trigger" href="{% url 'acceuil' %}"> <img src="{% static 'site/img/favicon.ico' %}">
+        Pur Beurre</a>
+    {% endblock menuTop %}
+
+    {% block content %}
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto text-center">
+                    <h1 class="section-heading">Mentions légales</h1>
+                    <hr class="my-5">
+                    <h5 class="mb-4">Template bootstrap utilisé : <a href="https://blackrockdigital.github.io/startbootstrap-creative/">Creative</a></h5>
+                    <h5 class="mb-4">Les données (images, nom, informations) des aliments proviennent de l'API <a href="https://fr.openfoodfacts.org/">OpenFoodFacts</a></h5>
+                    <h5 class="mb-4">Les autres images utilisée (page d'acceuil) sont la propriété de &copyDisney</h5>
+                    <h5 class="mb-4">Les 3 images de fond utilisée sont disponibles a ces adresses :</h5>
+                    <h6 class="mb-4"> <a href="https://unsplash.com/photos/YTbFHT9_IhY">Image 1 : Photo by Greg
+                            Jeanneau on Unsplash</a> </h6>
+                    <h6 class="mb-4"> <a href="https://unsplash.com/photos/k60JspcBwKE">Image 2 : Photo by Kawin
+                            Harasai on Unsplash</a> </h6>
+                    <h6 class="mb-4"> <a href="https://unsplash.com/photos/eqsEZNCm4-c">Image 3 : Photo by Olenka Kotyk
+                            on Unsplash</a> </h6>
+
+                    <h5 class="mb-4">Toute les autres ressources sont libre de droit</h5>
+                    <h5 class="mb-4">Site hébergé sur <a href="https://www.heroku.com/">Heroku</a></h5>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    {% endblock %}
