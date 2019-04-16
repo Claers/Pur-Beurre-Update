@@ -285,7 +285,8 @@ def connexion(request):
                 username = form.cleaned_data["username"]
                 password = form.cleaned_data["password"]
                 # Nous vérifions si les données sont correctes
-                user = User.objects.get(username=username)
+                user = authenticate(username=username,
+                                    password=password)
                 if user:  # Si l'objet renvoyé n'est pas None
                     login(request, user)  # nous connectons l'utilisateur
                     return redirect('acceuil_login')
