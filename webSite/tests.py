@@ -2,9 +2,9 @@
 Tests for the webSite app
 """
 
-
 from django.test import TestCase, Client
 from .models import Product, Category
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
@@ -53,3 +53,60 @@ class TestSearch(TestCase):
             '/search', {"product_name": "Test2"}, follow=True)
         self.assertEqual(
             response.context['products_by_category']['categoryTest'][0], obj1)
+
+
+class TestAuth(TestCase):
+    """
+    Tests for the auth functionnalities
+    """
+
+    def setUp(self):
+        """The set up for tests
+        """
+
+        self.client = Client()
+
+    def test_create_account(self):
+        """
+        Test for create a account
+        """
+
+        self.client.post(
+            '/connexion', {"username": "test", "email": "test@test.com",
+                           "password": "test"}, follow=True)
+        assert (self.client.session['_auth_user_id'])
+
+    def test_logout(self):
+        """
+        Test for logout user
+        """
+        self.client.post(
+            '/deconnexion', follow=True
+        )
+        self.assertRaises(
+            KeyError, lambda: self.client.session['_auth_user_id'])
+
+    def test_login(self):
+        """
+        Test for login user
+        """
+        User.objects.create_user(username="test",
+                                 password="test",
+                                 email="test@test.com")
+        self.client.post(
+            '/connexion', {"username": "test", "password": "test",
+                           "connect": "true"}, follow=True)
+        assert (self.client.session['_auth_user_id'])
+
+    def test_login_error(self):
+        """
+        Test for error in loggin with a bad password
+        """
+        User.objects.create_user(username="test",
+                                 password="test",
+                                 email="test@test.com")
+        self.client.post(
+            '/connexion', {"username": "test", "password": "testesfqsf",
+                           "connect": "true"}, follow=True)
+        self.assertRaises(
+            KeyError, lambda: self.client.session['_auth_user_id'])
