@@ -64,6 +64,7 @@ Vous êtes connecté, {{ user.username }} !
                             <input type="hidden" id="connect" name="connect" value="false">
 
                             <input type="submit" value="Connexion" class="btn btn-info btn-block">
+                            <a class="btn btn-info btn-block" href="{% url 'password_reset' %}">Reset password</a>
                         </form>
                     </div>
                 </div>

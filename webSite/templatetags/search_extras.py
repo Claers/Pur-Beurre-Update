@@ -1,8 +1,6 @@
 """ Extra tags filter for the webSite app """
 from django import template
 
-import urllib.parse as parser
-from django.contrib.admin.utils import quote
 register = template.Library()
 
 
