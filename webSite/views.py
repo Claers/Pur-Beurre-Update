@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.admin.utils import unquote
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
 
 from .models import Product, Profile, Favorite
 from .forms import ConnexionForm, RegisterForm
@@ -181,6 +182,24 @@ def favorites(request):
         profile = request.user.profile
         favorites = profile.favorites.all()
         return render(request, 'site/favoris.html', locals())
+    else:
+        pass
+
+
+def export_fav(request):
+    if request.user.is_authenticated:
+        profile = request.user.profile
+        favorites = profile.favorites.all()
+        fav_list = list(favorites.values())
+        for favs in fav_list:
+            favs['substitute_id'] = list(Product.objects.filter(
+                id=favs['substitute_id']).values())
+            favs['product_id'] = list(Product.objects.filter(
+                id=favs['product_id']).values())
+        response = JsonResponse(fav_list, json_dumps_params={
+                                'indent': 4}, safe=False)
+        response['Content-Disposition'] = 'attachment; filename=favoris_export_PurBeurre.json'
+        return response
     else:
         pass
 
