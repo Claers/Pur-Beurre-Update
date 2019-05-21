@@ -25,8 +25,4 @@ urlpatterns = [
     path('admin/delete', views.del_data, name="deleteDB"),
     path('legal', views.legal_mentions, name="legal"),
     path('', include('django.contrib.auth.urls')),
-    re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-            auth_views.PasswordResetConfirmView,
-            kwargs={'form_class': forms.SetPasswordFormFR},
-            name="password_reset_confirm"),
 ]
