@@ -22,10 +22,17 @@ Pur Beurre - Vos Favoris
                     <h1>
                         <strong class="">Vos favoris</strong>
                     </h1>
+                    {% if favorites|length > 0 %}
                     <div class="col-lg-5 col-md-5 col-5 mx-auto">
                         <a href="{% url 'favoris_export' %}" class="btn btn-info btn-block" value=""><span
                                 class='fas '></span>
                             Exporter les favoris</a>
+                    </div>
+                    {% else %}
+                    <div class="col-lg-5 col-md-5 col-5 mx-auto">
+                        <p class="btn btn-info btn-block disabled" value=""><span
+                                class='fas '></span>
+                            Exporter les favoris</p>
                     </div>
                 </div>
             </div>
