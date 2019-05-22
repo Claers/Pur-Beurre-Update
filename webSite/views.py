@@ -187,6 +187,14 @@ def favorites(request):
 
 
 def export_fav(request):
+    """Send a json object to the user and automatically start the download of it
+
+    Models:
+        Favorite
+
+    Returns:
+        JsonResponse -- The json list of favorites
+    """
     if request.user.is_authenticated:
         profile = request.user.profile
         favorites = profile.favorites.all()
